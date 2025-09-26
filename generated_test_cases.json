@@ -1,0 +1,23 @@
+[
+    {
+        "case_name": "分页查询边界值测试 - 超大分页参数",
+        "description": "基于已有成功调用中使用 page 和 limit 参数的 /get 接口，测试当 limit 设置为超出系统允许的最大值（如 10000）时系统的处理能力，验证接口是否能正确返回错误提示或进行限制。",
+        "endpoint": "/get",
+        "request_params": "{\"page\": 1, \"limit\": 10000}",
+        "expected_status_code": 400
+    },
+    {
+        "case_name": "敏感字段空值注入测试 - 用户名为空字符串",
+        "description": "在已知正常登录请求中包含 username 和 password 的基础上，测试当 username 为空字符串时的系统行为，检测接口是否对关键字段做空值校验，防止潜在的安全或逻辑漏洞。",
+        "endpoint": "/post",
+        "request_params": "{\"password\": \"password123\", \"username\": \"\"}",
+        "expected_status_code": 400
+    },
+    {
+        "case_name": "特殊字符注入测试 - 路径参数混淆试探",
+        "description": "针对存在路径型接口（如 /test_path）的情况，构造携带特殊字符（如单引号、反斜杠、SQL 关键字）的请求体，测试接口是否存在解析异常或潜在注入风险，即使当前日志中该接口无参数，也应测试非预期输入的鲁棒性。",
+        "endpoint": "/test_path",
+        "request_params": "{\"input\": \"; DROP TABLE users; --\"}",
+        "expected_status_code": 400
+    }
+]
