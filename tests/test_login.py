@@ -40,6 +40,7 @@ def test_login_and_get_user_info(db_connection):
         "page": 1,
         "limit": 10
     }
+    #这是新加的注释，用于测试自动拉取代并构建功能，无实际作用
     user_info_response = api_client.get("/get", headers=headers)
     
     # 3. 断言（Assert） - 验证登录和获取用户信息是否成功
